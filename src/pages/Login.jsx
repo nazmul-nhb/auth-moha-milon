@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { loginUser } = useContext(AuthContext);
+    const { loginUser, signInWithGoogle } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -15,10 +16,23 @@ const Login = () => {
 
         // login user
         loginUser(email, password)
-            .then(result => console.log(result.user))
+            .then(result => {
+                console.log(result.user);
+                e.target.reset();
+                navigate('/profile')
+            })
             .catch(error => console.error(error))
     }
     
+    const handleGoogleSignIn =() => {
+        signInWithGoogle()
+            .then(result => {
+                console.log(result.user);
+                navigate('/profile')
+            })
+            .catch(error => console.error(error))
+    }
+
     return (
         <section className="space-y-6 flex flex-col justify-center items-center mt-8">
             <h2 className="text-2xl font-medium">Please, Login</h2>
@@ -31,6 +45,7 @@ const Login = () => {
                 <a href="#">Forgot Password?</a>
                 <button className="bg-[#23BE0A] text-base md:text-xl font-semibold text-white border border-[#23BE0A] rounded-xl w-full p-2 hover:bg-transparent hover:text-[#23BE0A] transition duration-500 flex justify-center items-center">Login</button>
             </form>
+            <button onClick={handleGoogleSignIn} className="bg-[#23BE0A] text-base md:text-xl font-semibold text-white border border-[#23BE0A] rounded-xl p-2 hover:bg-transparent hover:text-[#23BE0A] transition duration-500 flex justify-center items-center">Google Login</button>
 
             <p className="font-medium">New to Moha Milon? Please, <Link to={'/register'}>Register Here!</Link></p>
         </section>

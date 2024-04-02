@@ -19,7 +19,7 @@ const Navbar = () => {
                 <li><NavLink to={'/login'}>Login</NavLink></li>
                 <li><NavLink to={'/register'}>Register</NavLink></li></>
         }
-        <li><NavLink to={'/profile'}>My Profile</NavLink></li>
+        {user && <li><NavLink to={'/profile'}>My Profile</NavLink></li>}
     </>
 
     return (
@@ -32,8 +32,8 @@ const Navbar = () => {
             </div>
 
             {
-                user?.email
-                    ? <div className="flex gap-3 items-center"><h3 className="text-2xl font-semibold"><li className="list-none"><NavLink to={'/profile'}>{user?.email}</NavLink></li></h3>
+                user
+                    ? <div className="flex gap-3 items-center"><h3 className="text-2xl font-semibold"><li className="list-none"><NavLink to={'/profile'}>{user?.displayName || user?.email}</NavLink></li></h3>
                         <button onClick={handleLogOut} className="bg-[#23BE0A] text-base md:text-xl font-semibold text-white border border-[#23BE0A] rounded-xl p-2 hover:bg-transparent hover:text-[#23BE0A] transition duration-500 flex justify-center items-center">Log out</button></div>
                     : <Link to={'/login'} className="bg-[#23BE0A] text-base md:text-xl font-semibold text-white border border-[#23BE0A] rounded-xl p-2 hover:bg-transparent hover:text-[#23BE0A] transition duration-500 flex justify-center items-center">Login</Link>
             }
