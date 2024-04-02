@@ -1,11 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { loginUser, signInWithGoogle } = useContext(AuthContext);
+    const { user, loginUser, signInWithGoogle } = useContext(AuthContext);
+    const location = useLocation();
     const navigate = useNavigate();
 
     const handleLogin = (e) => {
@@ -19,19 +20,25 @@ const Login = () => {
             .then(result => {
                 console.log(result.user);
                 e.target.reset();
-                navigate('/profile')
+                // navigate('/profile')
             })
             .catch(error => console.error(error))
     }
-    
-    const handleGoogleSignIn =() => {
+
+    const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then(result => {
                 console.log(result.user);
-                navigate('/profile')
+                // navigate('/profile')
             })
             .catch(error => console.error(error))
     }
+
+    useEffect(() => {
+        if (user) {
+            navigate(location.state)
+        }
+    }, [location.state, navigate, user])
 
     return (
         <section className="space-y-6 flex flex-col justify-center items-center mt-8">
