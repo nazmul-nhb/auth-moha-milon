@@ -1,0 +1,25 @@
+a.active {
+    transition: 1s;
+    border: 1px solid #23BE0A;
+    background-color: white !important;
+    color: #23BE0A !important;
+}
+
+a.pending {
+    transition: 1s;
+    border: 1px solid #23BE0A !important;
+    background-color: #23BE0A !important;
+    color: white !important;
+}
+
+li a:hover {
+    border: 1px solid #23BE0A !important;
+    background-color: #23BE0A !important;
+    color: white !important;
+}
+
+li a {
+    border: 1px solid transparent;
+    padding: 6px 8px;
+    border-radius: 8px;
+}
