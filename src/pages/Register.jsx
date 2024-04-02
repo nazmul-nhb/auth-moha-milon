@@ -1,16 +1,26 @@
+import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Register = () => {
+    const { createUser } = useContext(AuthContext);
 
-    const handleRegister = (e) => {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleRegister = e => {
         e.preventDefault();
         const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
         const accepted = e.target.terms.checked;
-        console.log(name, email, password, accepted);
-}
+        // console.log(name, email, password, accepted);
+        // create user
+        createUser(email, password)
+            .then(result => console.log(result.user))
+            .catch(error => console.error(error))
+    }
+
     return (
         <section className="space-y-6 flex flex-col justify-center items-center mt-8">
             <h2 className="text-2xl font-medium">Please, Register</h2>
@@ -19,7 +29,7 @@ const Register = () => {
                 <input className="p-2 rounded-lg border border-red-950" type="email" name="email" placeholder="Your Email" required />
                 <div className="relative">
                     <input className="p-2 rounded-lg w-full border border-red-950" type={"password"} name="password" placeholder="Your Password" required />
-                    <span className="absolute top-1/2 right-2 -translate-y-1/2" ><FaEyeSlash /> <FaEye /></span>
+                    <span className="absolute top-1/2 right-2 -translate-y-1/2" onClick={() => setShowPassword(!showPassword)} >{showPassword ? <FaEyeSlash /> : <FaEye />}</span>
                 </div>
                 <div className="flex gap-2">
                     <input type="checkbox" name="terms" id="terms" />
