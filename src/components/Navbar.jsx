@@ -1,7 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Navbar = () => {
+    const authInfo = useContext(AuthContext)
 
     const navLinks = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
@@ -18,7 +21,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div>
-                <h3 className="text-2xl font-semibold"><Link>My Profile</Link></h3>
+                <h3 className="text-2xl font-semibold"><Link>{authInfo.name}</Link></h3>
             </div>
         </nav>
     );
