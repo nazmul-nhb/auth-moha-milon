@@ -2,10 +2,11 @@ import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Profile = () => {
-    const authInfo = useContext(AuthContext)
+    const {user} = useContext(AuthContext)
     return (
         <div>
-            {authInfo.name}
+            <h3 className="text-2xl">My Email</h3>
+            {user?.email}
         </div>
     );
 };
