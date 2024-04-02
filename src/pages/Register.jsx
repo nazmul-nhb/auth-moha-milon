@@ -15,6 +15,7 @@ const Register = () => {
         const password = e.target.password.value;
         const accepted = e.target.terms.checked;
         // console.log(name, email, password, accepted);
+
         // create user
         createUser(email, password)
             .then(result => console.log(result.user))
@@ -28,7 +29,7 @@ const Register = () => {
                 <input className="p-2 rounded-lg border border-red-950" type="text" name="name" placeholder="Your Name" required />
                 <input className="p-2 rounded-lg border border-red-950" type="email" name="email" placeholder="Your Email" required />
                 <div className="relative">
-                    <input className="p-2 rounded-lg w-full border border-red-950" type={"password"} name="password" placeholder="Your Password" required />
+                    <input className="p-2 rounded-lg w-full border border-red-950" type={showPassword ? "text" : "password"} name="password" placeholder="Your Password" required />
                     <span className="absolute top-1/2 right-2 -translate-y-1/2" onClick={() => setShowPassword(!showPassword)} >{showPassword ? <FaEyeSlash /> : <FaEye />}</span>
                 </div>
                 <div className="flex gap-2">
