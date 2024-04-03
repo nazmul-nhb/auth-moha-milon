@@ -37,8 +37,6 @@ const Navbar = () => {
                         <button onClick={handleLogOut} className="bg-[#23BE0A] text-base md:text-xl font-semibold text-white border border-[#23BE0A] rounded-xl p-2 hover:bg-transparent hover:text-[#23BE0A] transition duration-500 flex justify-center items-center">Log out</button></div>
                     : <Link to={'/login'} className="bg-[#23BE0A] text-base md:text-xl font-semibold text-white border border-[#23BE0A] rounded-xl p-2 hover:bg-transparent hover:text-[#23BE0A] transition duration-500 flex justify-center items-center">Login</Link>
             }
-
-
         </nav>
     );
 };

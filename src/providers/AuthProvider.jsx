@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { FacebookAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { auth } from '../firebase/firebase.config'; 
 import { GoogleAuthProvider } from "firebase/auth";
 
 const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
 export const AuthContext = createContext(null);
 
@@ -26,6 +27,10 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, googleProvider)
     }
 
+    const signInWithFacebook = () => {
+        return signInWithPopup(auth, facebookProvider)
+    }
+
     const logOut = () => {
         setLoading(true);
         return signOut(auth);
@@ -44,7 +49,7 @@ const AuthProvider = ({ children }) => {
         }
     }, [])
 
-    const authInfo = { user, loading, createUser, loginUser, signInWithGoogle, logOut }
+    const authInfo = { user, loading, createUser, loginUser, signInWithGoogle, signInWithFacebook, logOut }
 
     return (
         <AuthContext.Provider value={authInfo}>

@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
-import { updateProfile } from "firebase/auth";
+import { sendEmailVerification, updateProfile } from "firebase/auth";
 
 const Register = () => {
     const { createUser } = useContext(AuthContext);
@@ -31,6 +31,12 @@ const Register = () => {
                     })
                     .catch(error => {
                         alert(error);
+                    })
+
+                // send verification email
+                sendEmailVerification(result.user)
+                    .then(() => {
+                        alert('Please, check your email and verify it')
                     })
             })
             .catch(error => console.error(error))

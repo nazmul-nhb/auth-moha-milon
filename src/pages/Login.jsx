@@ -5,7 +5,7 @@ import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { user, loginUser, signInWithGoogle } = useContext(AuthContext);
+    const { user, loginUser, signInWithGoogle, signInWithFacebook } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -34,11 +34,20 @@ const Login = () => {
             .catch(error => console.error(error))
     }
 
+    const handleFacebookSignIn = () => {
+        signInWithFacebook()
+            .then(result => {
+                console.log(result.user);
+                // navigate('/profile')
+            })
+            .catch(error => console.error(error))
+    }
+
     useEffect(() => {
         if (user) {
             navigate(location.state)
         }
-    }, [user])
+    }, [location.state, navigate, user]) // we should use only user here, not all 3
 
     return (
         <section className="space-y-6 flex flex-col justify-center items-center mt-8">
@@ -53,6 +62,7 @@ const Login = () => {
                 <button className="bg-[#23BE0A] text-base md:text-xl font-semibold text-white border border-[#23BE0A] rounded-xl w-full p-2 hover:bg-transparent hover:text-[#23BE0A] transition duration-500 flex justify-center items-center">Login</button>
             </form>
             <button onClick={handleGoogleSignIn} className="bg-[#23BE0A] text-base md:text-xl font-semibold text-white border border-[#23BE0A] rounded-xl p-2 hover:bg-transparent hover:text-[#23BE0A] transition duration-500 flex justify-center items-center">Google Login</button>
+            <button onClick={handleFacebookSignIn} className="bg-[#23BE0A] text-base md:text-xl font-semibold text-white border border-[#23BE0A] rounded-xl p-2 hover:bg-transparent hover:text-[#23BE0A] transition duration-500 flex justify-center items-center">Facebook Login</button>
 
             <p className="font-medium">New to Moha Milon? Please, <Link to={'/register'}>Register Here!</Link></p>
         </section>
