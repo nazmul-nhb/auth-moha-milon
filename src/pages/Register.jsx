@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
     const { createUser } = useContext(AuthContext);
@@ -10,7 +11,7 @@ const Register = () => {
 
     const handleRegister = e => {
         e.preventDefault();
-        // const name = e.target.name.value;
+        const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
         // const accepted = e.target.terms.checked;
@@ -18,7 +19,20 @@ const Register = () => {
 
         // create user
         createUser(email, password)
-            .then(result => console.log(result.user))
+            .then(result => {
+                console.log(result.user);
+
+                // update profile
+                updateProfile(result.user, {
+                    displayName: name,
+                })
+                    .then(() => {
+                        alert("Profile Updated")
+                    })
+                    .catch(error => {
+                        alert(error);
+                    })
+            })
             .catch(error => console.error(error))
     }
 

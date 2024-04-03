@@ -38,7 +38,7 @@ const Login = () => {
         if (user) {
             navigate(location.state)
         }
-    }, [location.state, navigate, user])
+    }, [user])
 
     return (
         <section className="space-y-6 flex flex-col justify-center items-center mt-8">
